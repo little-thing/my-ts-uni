@@ -3,25 +3,37 @@
         <image class="logo" src="../../static/logo.png"></image>
 		<view>
             <text class="title">{{title}}</text>
+            <button type="primary" @tap="this.getUserOpne()"> 获取openId</button>
         </view>
 	</view>
 </template>
 
 <script lang="ts">
     import Vue from 'vue';
-	export default Vue.extend({
-		data() {
-			return {
-				title: 'Hello'
-			}
-		},
-		onLoad() {
+    import {Component} from "vue-property-decorator";
+    import {
+        namespace
+    } from "vuex-class";
 
-		},
-		methods: {
+    const initModule=namespace('init')
+    @Component({})
+    class Index extends  Vue {
+        @initModule.State(state => state.hasLogin) public hasLogin!: boolean;
+        @initModule.Action('getUserOpenId') getUserOpenId!: Function;
 
-		}
-	});
+        title= 'Hello';
+
+        onLoad() {
+            console.log('onLoad')
+        }
+
+        async getUserOpne(){
+            const openId=await this.getUserOpenId();
+            console.log(openId,this.hasLogin);
+        }
+    }
+
+    export default Index;
 </script>
 
 <style>

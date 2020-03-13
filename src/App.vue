@@ -10,7 +10,10 @@
         },
         onHide() {
             console.log('App Hide')
-        }
+        },
+		onError(e) {
+			console.log(e)
+		}
     });
 </script>
 
